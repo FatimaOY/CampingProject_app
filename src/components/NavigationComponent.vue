@@ -57,7 +57,11 @@ export default {
   },
   methods: {
     setActivePage(page) {
-      this.$emit("setActivePage", page);
+        if (page === "host" && !this.isLoggedIn) {
+            this.$emit("setActivePage", "auth");
+        } else {
+            this.$emit("setActivePage", page);
+        }
     }
   }
 };
