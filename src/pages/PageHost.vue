@@ -35,7 +35,7 @@
 
       <div class="form-group">
         <label>Price per Night (EUR)</label>
-        <input v-model.number="spot.price_per_night" type="number" required />
+        <input v-model.number="spot.price_per_night" type="number" step="0.01" required/>
       </div>
 
       <div class="form-group">

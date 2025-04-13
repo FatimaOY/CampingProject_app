@@ -20,9 +20,9 @@
     <PageBookings v-if="activePage === 'bookings'" :userId="userId" :isHost="isHost" />
     <PageHost v-if="activePage === 'host'" :userId="userId" @setAsHost="setIsHostTrue" />
     <PageContact v-if="activePage === 'contact'" />
-    <!-- <PageProfile v-if="activePage === 'profile'" :userId="userId" /> -->
     <PageManageSpots v-if="activePage === 'manageSpots'" :userId="userId" />
     <PageProfile v-if="activePage === 'profile'" :userId="userId" @setActivePage="setActivePage"/>
+    <PageChangePassword v-if="activePage === 'changePassword'" :userId="userId"/>
 
 
   </div>
@@ -40,6 +40,7 @@ import PageHost from './pages/PageHost.vue'
 import PageContact from './pages/PageContact.vue'
 import PageProfile from './pages/PageProfile.vue'
 import PageManageSpots from './pages/PageManageSpots.vue'
+import PageChangePassword from './pages/PageChangePassword.vue'
 
 export default {
   name: 'App',
@@ -54,7 +55,8 @@ export default {
     PageHost,
     PageContact,
     PageProfile,
-    PageManageSpots
+    PageManageSpots,
+    PageChangePassword
   },
   data() {
     return {

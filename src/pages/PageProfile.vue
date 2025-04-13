@@ -5,8 +5,13 @@
     <div v-if="user">
       <div class="form-group">
         <label>Profile Image</label>
-        <img :src="user.image_url || defaultImage" alt="Profile Image" class="profile-img" />
-        <input type="text" v-model="editableUser.image_url" placeholder="New image URL" />
+        <img :src="editableUser.image_url || defaultImage" alt="Profile Image" class="profile-img" />
+
+        <input type="file" @change="handleImageUpload" accept="image/*" />
+
+        <p v-if="uploading">Uploading...</p>
+        <p v-if="uploadError" class="error">{{ uploadError }}</p>
+
       </div>
 
       <div class="form-group">
@@ -30,8 +35,8 @@
       </div>
 
       <button @click="updateProfile">Update Profile</button>
-      <button class="danger">Change Password</button>
-      <button class="danger">Delete Account</button>
+      <button class="danger" @click="$emit('setActivePage', 'changePassword')">Change Password</button>
+      <button class="danger" @click="deleteAccount">Delete Account</button>
 
       <!-- Owner-specific content -->
       <div v-if="isHost" class="owner-section">
@@ -58,9 +63,12 @@ export default {
       success: '',
       error: '',
       isHost: false,
-      defaultImage: 'https://via.placeholder.com/100'
+      defaultImage: 'https://via.placeholder.com/100',
+      uploading: false,
+      uploadError: ''
     };
   },
+
   methods: {
     fetchUserProfile() {
         fetch(`http://localhost:3000/profile?userId=${this.userId}`)
@@ -94,7 +102,54 @@ export default {
         .then(spots => {
           this.isHost = Array.isArray(spots) && spots.length > 0;
         });
-    }
+    },
+    handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      this.uploading = true;
+      fetch('http://localhost:3000/upload/upload-profile-image', {
+        method: 'POST',
+        body: formData
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.imageUrl) {
+            this.editableUser.image_url = data.imageUrl;
+            this.uploadError = '';
+          } else {
+            this.uploadError = 'Upload failed';
+          }
+        })
+        .catch(() => {
+          this.uploadError = 'Error uploading image';
+        })
+        .finally(() => {
+          this.uploading = false;
+        });
+    },
+    deleteAccount() {
+    if (!confirm('Are you sure you want to delete your account? This cannot be undone.')) return;
+
+    fetch(`http://localhost:3000/users/${this.user.user_id}`, {
+      method: 'DELETE'
+    })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+        // Optionally redirect or reset state
+        window.location.reload();
+
+      })
+      .catch(() => {
+        this.error = 'Failed to delete account.';
+      });
+  }
+
+
   },
   mounted() {
     this.fetchUserProfile();
