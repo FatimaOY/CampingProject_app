@@ -1,27 +1,35 @@
 <template>
   <div id="app">
     <!-- Navigation -->
-    <NavigationComponent :isLoggedIn="isLoggedIn" @setActivePage="setActivePage" />
+    <NavigationComponent
+      :isLoggedIn="isLoggedIn"
+      :isHost="isHost"
+      @setActivePage="setActivePage"
+    />
 
     <!-- Pages -->
     <PageHome v-if="activePage === 'home'" />
     <PageAuth v-if="activePage === 'auth'" @setActivePage="setActivePage" />
-    <PageLogin v-if="activePage === 'login'" @setActivePage="setActivePage" @setLoggedIn="setLoggedIn" />
-    <PageRegister v-if="activePage === 'register'" @setActivePage="setActivePage"/>
+    <PageLogin
+      v-if="activePage === 'login'"
+      @setActivePage="setActivePage"
+      @setLoggedIn="handleLogin"
+    />
+    <PageRegister v-if="activePage === 'register'" @setActivePage="setActivePage" />
     <PageExplore v-if="activePage === 'explore'" />
-    <PageBookings v-if="activePage === 'bookings'" />
-    <PageHost v-if="activePage === 'host'" />
+    <PageBookings v-if="activePage === 'bookings'" :userId="userId" :isHost="isHost" />
+    <PageHost v-if="activePage === 'host'" :userId="userId" @setAsHost="setIsHostTrue" />
     <PageContact v-if="activePage === 'contact'" />
-    <PageProfile v-if="activePage === 'profile'" />
+    <!-- <PageProfile v-if="activePage === 'profile'" :userId="userId" /> -->
+    <PageManageSpots v-if="activePage === 'manageSpots'" :userId="userId" />
+    <PageProfile v-if="activePage === 'profile'" :userId="userId" @setActivePage="setActivePage"/>
+
 
   </div>
 </template>
 
 <script>
-// Components
 import NavigationComponent from './components/NavigationComponent.vue'
-
-// Pages
 import PageHome from './pages/PageHome.vue'
 import PageAuth from './pages/PageAuth.vue'
 import PageLogin from './pages/PageLogin.vue'
@@ -30,6 +38,8 @@ import PageExplore from './pages/PageExplore.vue'
 import PageBookings from './pages/PageBookings.vue'
 import PageHost from './pages/PageHost.vue'
 import PageContact from './pages/PageContact.vue'
+import PageProfile from './pages/PageProfile.vue'
+import PageManageSpots from './pages/PageManageSpots.vue'
 
 export default {
   name: 'App',
@@ -42,21 +52,46 @@ export default {
     PageExplore,
     PageBookings,
     PageHost,
-    PageContact
+    PageContact,
+    PageProfile,
+    PageManageSpots
   },
   data() {
     return {
       activePage: 'home',
-      isLoggedIn: false
-
-    }
+      isLoggedIn: false,
+      userId: null,
+      isHost: false
+    };
   },
   methods: {
-  setActivePage(page) {
-    this.activePage = page;
+    setActivePage(page) {
+      this.activePage = page;
     },
     setLoggedIn(status) {
       this.isLoggedIn = status;
+    },
+    setUserId(id) {
+      this.userId = id; // ✅ update user ID from login
+    },
+    handleLogin(userData) {
+      this.isLoggedIn = true;
+      this.userId = userData.user_id;
+      this.checkIfUserIsHost();
+    },
+    setIsHostTrue() {
+      this.isHost = true;
+    },
+    checkIfUserIsHost() {
+      // 👇 Replace with your actual API URL
+      fetch(`http://localhost:3000/campingspots/owner/${this.userId}`)
+      .then(res => res.json())
+        .then(spots => {
+          this.isHost = Array.isArray(spots) && spots.length > 0;
+        })
+        .catch(() => {
+          this.isHost = false;
+        });
     }
   }
 }

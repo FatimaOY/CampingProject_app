@@ -11,7 +11,7 @@
           {{ item.label }}
         </li>
 
-        <!-- Show Bookings only when logged in -->
+        <!-- Bookings only if logged in -->
         <li
           v-if="isLoggedIn"
           class="c-navigation__link"
@@ -20,7 +20,7 @@
           Bookings
         </li>
 
-        <!-- Show Profile always last when logged in -->
+        <!-- Profile always last when logged in -->
         <li
           v-if="isLoggedIn"
           class="c-navigation__link"
@@ -36,13 +36,13 @@
 <script>
 export default {
   name: "NavigationComponent",
-  props: ["isLoggedIn"],
+  props: ["isLoggedIn", "isHost"],
   data() {
     return {
-      items: [
+      allItems: [
         { label: "Home", page: "home" },
         { label: "Explore", page: "explore" },
-        { label: "Become a Host", page: "host" },
+        { label: "Become a Host", page: "host", requiresNonHost: true },
         { label: "Contact", page: "contact" },
         { label: "Login / Register", page: "auth", requiresAuth: false }
       ]
@@ -50,18 +50,21 @@ export default {
   },
   computed: {
     filteredItems() {
-      return this.items.filter(item => {
-        return this.isLoggedIn ? item.page !== 'auth' : !item.requiresAuth;
+      return this.allItems.filter(item => {
+        if (!this.isLoggedIn) return !item.requiresAuth;
+        if (item.page === 'auth') return false;
+        if (item.page === 'host' && this.isHost) return false;
+        return true;
       });
     }
   },
   methods: {
     setActivePage(page) {
-        if (page === "host" && !this.isLoggedIn) {
-            this.$emit("setActivePage", "auth");
-        } else {
-            this.$emit("setActivePage", page);
-        }
+      if (page === "host" && !this.isLoggedIn) {
+        this.$emit("setActivePage", "auth");
+      } else {
+        this.$emit("setActivePage", page);
+      }
     }
   }
 };

@@ -58,10 +58,11 @@
 <script>
 export default {
   name: "PageHost",
+
+  props: ['userId'],
   data() {
     return {
       spot: {
-        owner_id: 1,
         name: '',
         description: '',
         location: '',
@@ -85,6 +86,9 @@ export default {
         });
     },
     submitSpot() {
+      // ✅ Set owner_id here using prop value
+      this.spot.owner_id = this.userId;
+
       const fullSpotData = {
         ...this.spot,
         amenities: this.selectedAmenities
@@ -102,6 +106,7 @@ export default {
           if (data.spot_id) {
             this.success = "Camping spot created successfully!";
             this.error = '';
+            this.$emit('setAsHost'); // Let App.vue know user is now a host
           } else {
             this.error = data.error || "Something went wrong.";
             this.success = '';

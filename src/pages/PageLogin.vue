@@ -43,8 +43,9 @@ export default {
             .then(res => res.json())
             .then(data => {
             if (data.user) { // ✅ check if a user object was returned
-                this.$emit('setLoggedIn', true);
-                this.$emit('setActivePage', 'explore');
+              this.$emit("setLoggedIn", data.user); //  includes user_id
+              this.$emit('setUserId', data.user.user_id);
+              this.$emit('setActivePage', 'explore');
             } else {
                 this.error = data.error || 'Login failed.';
             }
