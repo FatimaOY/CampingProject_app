@@ -23,14 +23,19 @@
 
     <!-- Spots List -->
     <div class="spots-list">
-      <div v-for="spot in spots" :key="spot.spot_id" class="spot-card">
-        <h3>{{ spot.name }}</h3>
-        <p><strong>Location:</strong> {{ spot.location }}, {{ spot.city?.name }}, {{ spot.country?.name }}</p>
-        <p>{{ spot.description }}</p>
-        <p><strong>Guests:</strong> {{ spot.amountGuests }} | <strong>Price:</strong> €{{ spot.price_per_night }}</p>
-        <button @click="deleteSpot(spot.spot_id)">Delete</button>
-      </div>
+    <div v-for="spot in spots" :key="spot.spot_id" class="spot-card">
+      <h3>{{ spot.name }}</h3>
+      <p><strong>Location:</strong> {{ spot.location }}, {{ spot.city?.name }}, {{ spot.country?.name }}</p>
+      <p>{{ spot.description }}</p>
+      <p><strong>Guests:</strong> {{ spot.amountGuests }} | <strong>Price:</strong> €{{ spot.price_per_night }}</p>
+
+      <!-- ✅ Edit / Activate button -->
+      <button @click="$emit('editSpot', spot.spot_id)">Edit / Activate</button>
+
+      <button @click="deleteSpot(spot.spot_id)">Delete</button>
     </div>
+  </div>
+
 
     <p v-if="error" class="error">{{ error }}</p>
   </div>

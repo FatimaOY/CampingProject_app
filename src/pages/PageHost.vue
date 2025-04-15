@@ -47,6 +47,8 @@
         </div>
       </div>
 
+      
+
       <button type="submit">Submit Camping Spot</button>
 
       <p v-if="success" class="success">{{ success }}</p>
@@ -58,7 +60,6 @@
 <script>
 export default {
   name: "PageHost",
-
   props: ['userId'],
   data() {
     return {
@@ -86,11 +87,11 @@ export default {
         });
     },
     submitSpot() {
-      // ✅ Set owner_id here using prop value
       this.spot.owner_id = this.userId;
 
       const fullSpotData = {
         ...this.spot,
+        is_Active: false,
         amenities: this.selectedAmenities
       };
 
@@ -104,16 +105,46 @@ export default {
         .then(res => res.json())
         .then(data => {
           if (data.spot_id) {
-            this.success = "Camping spot created successfully!";
+            this.success = "Camping spot created! Go to your Profile > Manage My Camping Spots to set availability and activate it.";
             this.error = '';
-            this.$emit('setAsHost'); // Let App.vue know user is now a host
+            this.spotIdCreated = data.spot_id;
+            this.showCalendar = true;
+            this.$emit('setAsHost');
           } else {
             this.error = data.error || "Something went wrong.";
             this.success = '';
           }
         })
         .catch(() => {
-          this.error = "Server error. Please try again later.";
+          this.error = "Server error. Try again later.";
+        });
+    },
+    toggleAvailability(day) {
+      const isoDate = day.date.toISOString().split('T')[0];
+
+      fetch("http://localhost:3000/availability/toggle", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          spot_id: this.spotIdCreated,
+          date: isoDate
+        })
+      })
+        .then(res => res.json())
+        .then(response => {
+          if (response.action === 'added') {
+            this.selectedDates.push(isoDate);
+          } else if (response.action === 'removed') {
+            this.selectedDates = this.selectedDates.filter(d => d !== isoDate);
+          }
+
+          this.calendarAttributes = this.selectedDates.map(date => ({
+            key: date,
+            dates: new Date(date),
+            highlight: { backgroundColor: '#3d5018' },
+          }));
         });
     }
   },

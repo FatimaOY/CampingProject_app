@@ -20,10 +20,12 @@
     <PageBookings v-if="activePage === 'bookings'" :userId="userId" :isHost="isHost" />
     <PageHost v-if="activePage === 'host'" :userId="userId" @setAsHost="setIsHostTrue" />
     <PageContact v-if="activePage === 'contact'" />
-    <PageManageSpots v-if="activePage === 'manageSpots'" :userId="userId" />
     <PageProfile v-if="activePage === 'profile'" :userId="userId" @setActivePage="setActivePage"/>
     <PageChangePassword v-if="activePage === 'changePassword'" :userId="userId"/>
+    <PageManageSingleSpot v-if="activePage === 'manageSingleSpot'" :spotId="selectedSpotId" />
+    <PageManageSpots v-if="activePage === 'manageSpots'" :userId="userId" @editSpot="setSelectedSpot" />
 
+    
 
   </div>
 </template>
@@ -41,6 +43,7 @@ import PageContact from './pages/PageContact.vue'
 import PageProfile from './pages/PageProfile.vue'
 import PageManageSpots from './pages/PageManageSpots.vue'
 import PageChangePassword from './pages/PageChangePassword.vue'
+import PageManageSingleSpot from './pages/ManageSingleSpot.vue'
 
 export default {
   name: 'App',
@@ -56,14 +59,18 @@ export default {
     PageContact,
     PageProfile,
     PageManageSpots,
-    PageChangePassword
+    PageChangePassword,
+    PageManageSingleSpot
+    
   },
   data() {
     return {
       activePage: 'home',
       isLoggedIn: false,
       userId: null,
-      isHost: false
+      isHost: false,
+      selectedSpotId: null
+
     };
   },
   methods: {
@@ -94,7 +101,12 @@ export default {
         .catch(() => {
           this.isHost = false;
         });
+    },
+    setSelectedSpot(id) {
+      this.selectedSpotId = id;
+      this.activePage = 'manageSingleSpot';
     }
+
   }
 }
 </script>
