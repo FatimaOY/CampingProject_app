@@ -24,9 +24,9 @@
     <PageChangePassword v-if="activePage === 'changePassword'" :userId="userId"/>
     <PageManageSingleSpot v-if="activePage === 'manageSingleSpot'" :spotId="selectedSpotId" />
     <PageManageSpots v-if="activePage === 'manageSpots'" :userId="userId" @editSpot="setSelectedSpot" />
-    <PageSpotDetails v-if="activePage === 'spotDetails'" :spotId="selectedSpotId"/>
+    <PageSpotDetails v-if="activePage === 'spotDetails'" :spotId="selectedSpotId"   @bookThisSpot="startBooking"/>
     <PageExplore v-if="activePage === 'explore'" @showSpotDetails="handleSpotClick"/>
-
+    <MakeBooking v-if="activePage === 'makeBooking'" :spotId="selectedSpotId" :userId="userId"/>
 
   </div>
 </template>
@@ -46,6 +46,7 @@ import PageManageSpots from './pages/PageManageSpots.vue'
 import PageChangePassword from './pages/PageChangePassword.vue'
 import PageManageSingleSpot from './pages/ManageSingleSpot.vue'
 import PageSpotDetails from './pages/PageSpotDetails.vue'
+import MakeBooking from './pages/MakeBooking.vue';
 
 export default {
   name: 'App',
@@ -63,7 +64,8 @@ export default {
     PageManageSpots,
     PageChangePassword,
     PageManageSingleSpot,
-    PageSpotDetails
+    PageSpotDetails,
+    MakeBooking
     
   },
   data() {
@@ -112,7 +114,12 @@ export default {
     handleSpotClick(spotId) {
       this.selectedSpotId = spotId;
       this.activePage = 'spotDetails';
+    },
+    startBooking(spotId) {
+      this.selectedSpotId = spotId;
+      this.activePage = 'makeBooking';
     }
+
 
   }
 }

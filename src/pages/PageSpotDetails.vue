@@ -94,7 +94,7 @@
         this.reviews = data;
       },
       goToBooking() {
-        this.$emit('bookThisSpot', this.spotId); // Switch page from App.vue if needed
+        this.$emit('bookThisSpot', this.spotId);
       }
     }
   };
