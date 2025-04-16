@@ -16,7 +16,7 @@
       @setLoggedIn="handleLogin"
     />
     <PageRegister v-if="activePage === 'register'" @setActivePage="setActivePage" />
-    <PageExplore v-if="activePage === 'explore'" />
+    <!-- <PageExplore v-if="activePage === 'explore'" /> -->
     <PageBookings v-if="activePage === 'bookings'" :userId="userId" :isHost="isHost" />
     <PageHost v-if="activePage === 'host'" :userId="userId" @setAsHost="setIsHostTrue" />
     <PageContact v-if="activePage === 'contact'" />
@@ -24,8 +24,9 @@
     <PageChangePassword v-if="activePage === 'changePassword'" :userId="userId"/>
     <PageManageSingleSpot v-if="activePage === 'manageSingleSpot'" :spotId="selectedSpotId" />
     <PageManageSpots v-if="activePage === 'manageSpots'" :userId="userId" @editSpot="setSelectedSpot" />
+    <PageSpotDetails v-if="activePage === 'spotDetails'" :spotId="selectedSpotId"/>
+    <PageExplore v-if="activePage === 'explore'" @showSpotDetails="handleSpotClick"/>
 
-    
 
   </div>
 </template>
@@ -44,6 +45,7 @@ import PageProfile from './pages/PageProfile.vue'
 import PageManageSpots from './pages/PageManageSpots.vue'
 import PageChangePassword from './pages/PageChangePassword.vue'
 import PageManageSingleSpot from './pages/ManageSingleSpot.vue'
+import PageSpotDetails from './pages/PageSpotDetails.vue'
 
 export default {
   name: 'App',
@@ -60,7 +62,8 @@ export default {
     PageProfile,
     PageManageSpots,
     PageChangePassword,
-    PageManageSingleSpot
+    PageManageSingleSpot,
+    PageSpotDetails
     
   },
   data() {
@@ -105,6 +108,10 @@ export default {
     setSelectedSpot(id) {
       this.selectedSpotId = id;
       this.activePage = 'manageSingleSpot';
+    },
+    handleSpotClick(spotId) {
+      this.selectedSpotId = spotId;
+      this.activePage = 'spotDetails';
     }
 
   }

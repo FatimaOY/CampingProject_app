@@ -39,12 +39,16 @@
       <!-- Reviews -->
       <h3>Reviews</h3>
       <ul v-if="reviews.length > 0">
-        <li v-for="r in reviews" :key="r.review_id">
-          <strong>{{ r.users?.first_name }}:</strong> {{ r.comment }}
+        <li v-for="r in reviews" :key="r.review_id" class="review-item">
+          <strong>{{ r.user?.first_name }} {{ r.user?.last_name }}</strong>
+          <br />
+          <span>⭐ {{ r.rating }}/5</span>
+          <br />
+          <span>{{ r.comment }}</span>
         </li>
       </ul>
       <p v-else>No reviews yet.</p>
-  
+
       <!-- Book Button -->
       <button @click="goToBooking">Book This Spot</button>
     </div>
@@ -72,7 +76,12 @@
         const res = await fetch(`http://localhost:3000/campingspots/${this.spotId}`);
         const data = await res.json();
         this.spot = data;
-        this.owner = data.owner;
+
+        if (data.owner_id) {
+          const ownerRes = await fetch(`http://localhost:3000/users/${data.owner_id}`);
+          const ownerData = await ownerRes.json();
+          this.owner = ownerData;
+        }
       },
       async fetchImages() {
         const res = await fetch(`http://localhost:3000/images/${this.spotId}`);
@@ -120,5 +129,13 @@
     border-radius: 6px;
     cursor: pointer;
   }
+  .review-item {
+  background-color: #e7f2e7;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  text-align: left;
+}
+
   </style>
   

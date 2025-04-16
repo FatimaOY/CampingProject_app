@@ -20,7 +20,7 @@
     </div>
 
     <div class="grid">
-      <div class="camping-card" v-for="spot in filteredSpots" :key="spot.spot_id">
+      <div class="camping-card" v-for="spot in filteredSpots" :key="spot.spot_id" @click="$emit('showSpotDetails', spot.spot_id)">
         <h3>{{ spot.name }}</h3>
         <p><strong>Location:</strong> {{ spot.location }}</p>
         <p><strong>City:</strong> {{ spot.city?.name }}</p>
