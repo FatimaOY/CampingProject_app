@@ -17,7 +17,7 @@
     />
     <PageRegister v-if="activePage === 'register'" @setActivePage="setActivePage" />
     <!-- <PageExplore v-if="activePage === 'explore'" /> -->
-    <PageBookings v-if="activePage === 'bookings'" :userId="userId" :isHost="isHost" />
+    <PageBookings v-if="activePage === 'bookings'" :userId="userId" :isHost="isHost"   @goToReview="startReview"/>
     <PageHost v-if="activePage === 'host'" :userId="userId" @setAsHost="setIsHostTrue" />
     <PageContact v-if="activePage === 'contact'" />
     <PageProfile v-if="activePage === 'profile'" :userId="userId" @setActivePage="setActivePage"/>
@@ -27,6 +27,7 @@
     <PageSpotDetails v-if="activePage === 'spotDetails'" :spotId="selectedSpotId"   @bookThisSpot="startBooking"/>
     <PageExplore v-if="activePage === 'explore'" @showSpotDetails="handleSpotClick"/>
     <MakeBooking v-if="activePage === 'makeBooking'" :spotId="selectedSpotId" :userId="userId"/>
+    <PageWriteReview v-if="activePage === 'writeReview'" :userId="userId" :spotId="selectedSpotId" />
 
   </div>
 </template>
@@ -47,6 +48,7 @@ import PageChangePassword from './pages/PageChangePassword.vue'
 import PageManageSingleSpot from './pages/ManageSingleSpot.vue'
 import PageSpotDetails from './pages/PageSpotDetails.vue'
 import MakeBooking from './pages/MakeBooking.vue';
+import PageWriteReview from './pages/PageWriteReview.vue';
 
 export default {
   name: 'App',
@@ -65,7 +67,9 @@ export default {
     PageChangePassword,
     PageManageSingleSpot,
     PageSpotDetails,
-    MakeBooking
+    MakeBooking,
+    PageWriteReview
+
     
   },
   data() {
@@ -118,7 +122,16 @@ export default {
     startBooking(spotId) {
       this.selectedSpotId = spotId;
       this.activePage = 'makeBooking';
+    },
+    startReview(spotId) {
+      this.selectedSpotId = spotId;
+      this.activePage = 'writeReview'; // this will show the PageWriteReview component
     }
+    ,
+    goToWriteReview(spotId) {
+    this.selectedSpotId = spotId;
+    this.activePage = 'writeReview';
+  }
 
 
   }
