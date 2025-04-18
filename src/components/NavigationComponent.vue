@@ -43,7 +43,6 @@ export default {
         { label: "Home", page: "home" },
         { label: "Explore", page: "explore" },
         { label: "Become a Host", page: "host", requiresNonHost: true },
-        { label: "Contact", page: "contact" },
         { label: "Login / Register", page: "auth", requiresAuth: false }
       ]
     };

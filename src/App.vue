@@ -19,7 +19,6 @@
     <!-- <PageExplore v-if="activePage === 'explore'" /> -->
     <PageBookings v-if="activePage === 'bookings'" :userId="userId" :isHost="isHost"   @goToReview="startReview"/>
     <PageHost v-if="activePage === 'host'" :userId="userId" @setAsHost="setIsHostTrue" />
-    <PageContact v-if="activePage === 'contact'" />
     <PageProfile v-if="activePage === 'profile'" :userId="userId" @setActivePage="setActivePage"/>
     <PageChangePassword v-if="activePage === 'changePassword'" :userId="userId"/>
     <PageManageSingleSpot v-if="activePage === 'manageSingleSpot'" :spotId="selectedSpotId" />
@@ -41,7 +40,6 @@ import PageRegister from './pages/PageRegister.vue'
 import PageExplore from './pages/PageExplore.vue'
 import PageBookings from './pages/PageBookings.vue'
 import PageHost from './pages/PageHost.vue'
-import PageContact from './pages/PageContact.vue'
 import PageProfile from './pages/PageProfile.vue'
 import PageManageSpots from './pages/PageManageSpots.vue'
 import PageChangePassword from './pages/PageChangePassword.vue'
@@ -61,7 +59,6 @@ export default {
     PageExplore,
     PageBookings,
     PageHost,
-    PageContact,
     PageProfile,
     PageManageSpots,
     PageChangePassword,
