@@ -14,19 +14,31 @@
         <option v-for="c in availableCities" :key="c" :value="c">{{ c }}</option>
       </select>
 
-      <input v-model.number="filters.guests" type="number" placeholder="Guests" />
-      <input v-model.number="filters.price" type="number" placeholder="Max Price" />
+      <input v-model.number="filters.minPrice" type="number" placeholder="Min Price" />
+      <input v-model.number="filters.maxPrice" type="number" placeholder="Max Price" />
+      <input v-model.number="filters.guests" type="number" placeholder="Guests (Exact)" />
+      <input v-model.number="filters.minRating" type="number" step="0.1" min="1" max="5" placeholder="Min Rating" />
+
       <button @click="applyFilters">Apply Filters</button>
     </div>
 
     <div class="grid">
       <div class="camping-card" v-for="spot in filteredSpots" :key="spot.spot_id" @click="$emit('showSpotDetails', spot.spot_id)">
+        <div v-if="spot.images && spot.images.length" class="image-container">
+          <img
+            v-if="spot.images && spot.images.length > 0"
+            :src="spot.images[0].image_url"
+            alt="Camping Image"
+            class="spot-image"
+          />        
+      </div>
         <h3>{{ spot.name }}</h3>
         <p><strong>Location:</strong> {{ spot.location }}</p>
         <p><strong>City:</strong> {{ spot.city?.name }}</p>
         <p><strong>Country:</strong> {{ spot.country?.name }}</p>
         <p><strong>Guests:</strong> {{ spot.amountGuests }}</p>
         <p><strong>Price:</strong> €{{ spot.price_per_night }} / night</p>
+        <p><strong>Rating:</strong> {{ spot.averageRating ? spot.averageRating.toFixed(1) : 'No reviews' }}</p>
         <p><strong>Amenities:</strong>
           <span v-for="a in spot.amenities" :key="a.amenity_id">
             {{ a.name }}
@@ -48,7 +60,9 @@ export default {
         country: '',
         city: '',
         guests: null,
-        price: null
+        minPrice: null,
+        maxPrice: null,
+        minRating: null
       },
       availableCountries: [],
       availableCities: []
@@ -59,9 +73,19 @@ export default {
       this.filteredSpots = this.campingSpots.filter(spot => {
         const matchCountry = !this.filters.country || spot.country?.name === this.filters.country;
         const matchCity = !this.filters.city || spot.city?.name === this.filters.city;
-        const matchGuests = !this.filters.guests || spot.amountGuests >= this.filters.guests;
-        const matchPrice = !this.filters.price || spot.price_per_night <= this.filters.price;
-        return matchCountry && matchCity && matchGuests && matchPrice;
+        const matchGuests = !this.filters.guests || spot.amountGuests === this.filters.guests;
+        const matchMinPrice = !this.filters.minPrice || spot.price_per_night >= this.filters.minPrice;
+        const matchMaxPrice = !this.filters.maxPrice || spot.price_per_night <= this.filters.maxPrice;
+        const matchRating = !this.filters.minRating || (spot.averageRating ?? 0) >= this.filters.minRating;
+
+        return (
+          matchCountry &&
+          matchCity &&
+          matchGuests &&
+          matchMinPrice &&
+          matchMaxPrice &&
+          matchRating
+        );
       });
     }
   },
@@ -72,7 +96,6 @@ export default {
         this.campingSpots = data;
         this.filteredSpots = data;
 
-        // Populate dropdowns
         this.availableCountries = [...new Set(data.map(s => s.country?.name).filter(Boolean))];
         this.availableCities = [...new Set(data.map(s => s.city?.name).filter(Boolean))];
       });
@@ -124,5 +147,21 @@ export default {
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.spot-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
 }
 </style>

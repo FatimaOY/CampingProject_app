@@ -38,6 +38,7 @@
   
       <!-- Reviews -->
       <h3>Reviews</h3>
+      <p><strong>Average Rating:</strong> {{ spot.averageRating ? spot.averageRating.toFixed(1) : 'No reviews yet' }}</p>
       <ul v-if="reviews.length > 0">
         <li v-for="r in reviews" :key="r.review_id" class="review-item">
           <strong>{{ r.user?.first_name }} {{ r.user?.last_name }}</strong>
