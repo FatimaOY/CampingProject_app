@@ -11,9 +11,9 @@
           {{ item.label }}
         </li>
 
-        <!-- Bookings only if logged in -->
+        <!-- Bookings (regular users only) -->
         <li
-          v-if="isLoggedIn"
+          v-if="isLoggedIn && !isAdmin"
           class="c-navigation__link"
           @click="setActivePage('bookings')"
         >
@@ -28,6 +28,7 @@
         >
           Profile
         </li>
+
       </ul>
     </nav>
   </div>
@@ -36,24 +37,30 @@
 <script>
 export default {
   name: "NavigationComponent",
-  props: ["isLoggedIn", "isHost"],
+  props: ['isLoggedIn', 'isHost', 'isAdmin'],
   data() {
     return {
       allItems: [
         { label: "Home", page: "home" },
         { label: "Explore", page: "explore" },
         { label: "Become a Host", page: "host", requiresNonHost: true },
-        { label: "Login / Register", page: "auth", requiresAuth: false }
+        { label: "Login / Register", page: "auth", requiresAuth: false },
+
+        // admin pages 
+        { label: "Users", page: "adminUsers", requiresAdmin: true },
+        { label: "Camping Spots", page: "adminSpots", requiresAdmin: true },
+        { label: "Bookings", page: "adminBookings", requiresAdmin: true }
       ]
     };
   },
   computed: {
     filteredItems() {
       return this.allItems.filter(item => {
-        if (!this.isLoggedIn) return !item.requiresAuth;
-        if (item.page === 'auth') return false;
+        if (item.requiresAdmin) return this.isAdmin;
+        if (item.requiresAuth === false) return !this.isLoggedIn;
+        if (item.page === 'auth' && this.isLoggedIn) return false;
         if (item.page === 'host' && this.isHost) return false;
-        return true;
+        return !item.requiresAdmin || !this.isAdmin;
       });
     }
   },

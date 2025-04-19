@@ -4,6 +4,8 @@
     <NavigationComponent
       :isLoggedIn="isLoggedIn"
       :isHost="isHost"
+      :isAdmin="isAdmin"
+
       @setActivePage="setActivePage"
     />
 
@@ -27,7 +29,10 @@
     <PageExplore v-if="activePage === 'explore'" @showSpotDetails="handleSpotClick"/>
     <MakeBooking v-if="activePage === 'makeBooking'" :spotId="selectedSpotId" :userId="userId"/>
     <PageWriteReview v-if="activePage === 'writeReview'" :userId="userId" :spotId="selectedSpotId" />
-
+    <!-- Admin pages -->
+    <AdminUsers v-if="activePage === 'adminUsers'" />
+    <AdminSpots v-if="activePage === 'adminSpots'" />
+    <AdminBookings v-if="activePage === 'adminBookings'" />
   </div>
 </template>
 
@@ -48,6 +53,12 @@ import PageSpotDetails from './pages/PageSpotDetails.vue'
 import MakeBooking from './pages/MakeBooking.vue';
 import PageWriteReview from './pages/PageWriteReview.vue';
 
+//Admin pages
+import AdminUsers from './pages/admin/AdminUsers.vue';
+import AdminSpots from './pages/admin/AdminSpots.vue';
+import AdminBookings from './pages/admin/AdminBookings.vue';
+
+
 export default {
   name: 'App',
   components: {
@@ -65,8 +76,12 @@ export default {
     PageManageSingleSpot,
     PageSpotDetails,
     MakeBooking,
-    PageWriteReview
+    PageWriteReview,
 
+    // admin
+    AdminUsers,
+    AdminSpots,
+    AdminBookings
     
   },
   data() {
@@ -74,6 +89,7 @@ export default {
       activePage: 'home',
       isLoggedIn: false,
       userId: null,
+      isAdmin: false,
       isHost: false,
       selectedSpotId: null
 
@@ -92,13 +108,13 @@ export default {
     handleLogin(userData) {
       this.isLoggedIn = true;
       this.userId = userData.user_id;
+      this.isAdmin = userData.is_admin === true;
       this.checkIfUserIsHost();
     },
     setIsHostTrue() {
       this.isHost = true;
     },
     checkIfUserIsHost() {
-      // 👇 Replace with your actual API URL
       fetch(`http://localhost:3000/campingspots/owner/${this.userId}`)
       .then(res => res.json())
         .then(spots => {
