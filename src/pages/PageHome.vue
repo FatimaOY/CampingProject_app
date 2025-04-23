@@ -2,7 +2,7 @@
   <div class="home-container">
     <!-- Hero Image -->
     <div class="hero-image">
-        <img :src="require('@/assets/forestPic.jpg')" alt="Camply logo" />
+        <img :src="require('@/assets/photo1.avif')" alt="Camply logo" />
     </div>
 
     <!-- Welcome Text -->
@@ -38,41 +38,52 @@ export default {
 
 <style scoped>
 .home-container {
-  text-align: center;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
 }
 
 .hero-image img {
   width: 100%;
-  height: auto;
-  max-height: 1000px;
+  height: 80vh;
   object-fit: cover;
+  object-position: center;
+  border-bottom: 5px solid #3d5018;
 }
 
+/* Welcome Section Styling */
 .welcome-text {
   background-color: #3d5018;
   color: #fff;
-  padding: 2rem;
+  padding: 4rem 2rem;
+  text-align: center;
 }
 
-.auth-buttons button {
-  margin: 10px;
-  padding: 0.7rem 1.5rem;
-  font-size: 1rem;
-  background-color: #afb686;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.welcome-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
 }
 
-.auth-buttons button:hover {
-  background-color: #727047;
+.welcome-text p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
+/* Footer Styling */
 .main-footer {
   background-color: #2d2814;
   color: white;
-  padding: 1rem;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 0.95rem;
 }
 
 .footer-content div {
@@ -82,5 +93,10 @@ export default {
 .footer-content a {
   color: #afb686;
   text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;
 }
 </style>

@@ -17,7 +17,7 @@
       <input v-model.number="filters.minPrice" type="number" placeholder="Min Price" />
       <input v-model.number="filters.maxPrice" type="number" placeholder="Max Price" />
       <input v-model.number="filters.guests" type="number" placeholder="Guests (Exact)" />
-      <input v-model.number="filters.minRating" type="number" step="0.1" min="1" max="5" placeholder="Min Rating" />
+      <input v-model.number="filters.minRating" type="number" step="0.1" min="1" max="5" placeholder="Rating" />
 
       <button @click="applyFilters">Apply Filters</button>
     </div>
@@ -41,7 +41,11 @@
         <p><strong>Rating:</strong> {{ spot.averageRating ? spot.averageRating.toFixed(1) : 'No reviews' }}</p>
         <p><strong>Amenities:</strong>
           <span v-for="a in spot.amenities" :key="a.amenity_id">
-            {{ a.name }}
+            <ul>
+              <li>
+                {{ a.name }}
+              </li>
+            </ul>
           </span>
         </p>
       </div>
@@ -147,6 +151,8 @@ export default {
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: left;
+
 }
 
 .image-container {

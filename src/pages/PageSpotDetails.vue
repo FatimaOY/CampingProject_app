@@ -38,16 +38,25 @@
   
       <!-- Reviews -->
       <h3>Reviews</h3>
-      <p><strong>Average Rating:</strong> {{ spot.averageRating ? spot.averageRating.toFixed(1) : 'No reviews yet' }}</p>
+      <p><strong>⭐ Average: </strong> {{ spot.averageRating ? spot.averageRating.toFixed(1) : 'No reviews yet' }}</p>
       <ul v-if="reviews.length > 0">
         <li v-for="r in reviews" :key="r.review_id" class="review-item">
-          <strong>{{ r.user?.first_name }} {{ r.user?.last_name }}</strong>
-          <br />
-          <span>⭐ {{ r.rating }}/5</span>
-          <br />
-          <span>{{ r.comment }}</span>
+          <div class="review-header">
+            <img
+              v-if="r.user?.image_url"
+              :src="r.user.image_url"
+              class="review-avatar"
+              alt="Profile Picture"
+            />
+            <div class="review-user">
+              <strong>{{ r.user?.first_name }} {{ r.user?.last_name }}</strong>
+              <div>⭐ {{ r.rating }}/5</div>
+            </div>
+          </div>
+          <p>{{ r.comment }}</p>
         </li>
       </ul>
+
       <p v-else>No reviews yet.</p>
 
       <!-- Book Button -->
@@ -108,6 +117,8 @@
     margin: 0 auto;
     background-color: #f9f9f9;
     border-radius: 12px;
+    text-align: left;
+
   }
   .image-gallery {
     display: flex;
@@ -137,6 +148,27 @@
   border-radius: 8px;
   text-align: left;
 }
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.review-user {
+  display: flex;
+  flex-direction: column;
+}
+
 
   </style>
   

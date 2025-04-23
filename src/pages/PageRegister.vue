@@ -15,6 +15,7 @@
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" id="email" v-model="email" placeholder="Enter your email" />
+      <small>Example: yourname@example.com</small>
     </div>
 
     <div class="form-group">
@@ -25,6 +26,7 @@
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" id="password" v-model="password" placeholder="Create a password" />
+      <small>Password must be at least 8 characters, contain 1 digit and 1 special character.</small>
     </div>
 
     <div class="form-group">
@@ -55,9 +57,29 @@ export default {
     };
   },
   methods: {
+    isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    },
+    isValidPassword(password) {
+      const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+      return passwordRegex.test(password);
+    },
     register() {
       if (this.password !== this.confirmPassword) {
         this.error = "Passwords do not match.";
+        this.success = '';
+        return;
+      }
+
+      if (!this.isValidEmail(this.email)) {
+        this.error = "Please enter a valid email address.";
+        this.success = '';
+        return;
+      }
+
+      if (!this.isValidPassword(this.password)) {
+        this.error = "Password must be at least 8 characters, include a digit and a special character.";
         this.success = '';
         return;
       }
@@ -92,10 +114,9 @@ export default {
             this.password = '';
             this.confirmPassword = '';
 
-            // ⏳ Make sure the `this` context is correct:
             setTimeout(() => {
-            this.$emit('setActivePage', 'login');
-            }, 2000); // 2 seconds is usually better for user experience
+              this.$emit('setActivePage', 'login');
+            }, 2000);
           }
         })
         .catch(() => {
@@ -106,6 +127,7 @@ export default {
   }
 }
 </script>
+
 
 
 <style scoped>
