@@ -13,7 +13,9 @@
       <div v-for="booking in myBookings" :key="booking.booking_id" class="booking-card">
         <p><strong>Spot:</strong> {{ booking.spot.name }}</p>
         <p><strong>Location:</strong> {{ booking.spot.city.name }}, {{ booking.spot.country.name }}</p>
-        <p><strong>Dates:</strong> {{ booking.check_in_date }} → {{ booking.check_out_date }}</p>
+        <p><strong>Dates:</strong> 
+          {{ formatDate(booking.check_in_date) }} → {{ formatDate(booking.check_out_date) }}
+        </p>
         <p><strong>Status:</strong> {{ booking.status.name }}</p>
         <button v-if="booking.status_id === 2" @click="goToReview(booking.spot.spot_id)">Write a Review</button>
       </div>
@@ -24,9 +26,10 @@
       <div v-for="booking in bookingsOnMySpots" :key="booking.booking_id" class="booking-card">
         <p><strong>User:</strong> {{ booking.user.first_name }} {{ booking.user.last_name }}</p>
         <p><strong>Spot:</strong> {{ booking.spot.name }}</p>
-        <p><strong>Dates:</strong> {{ booking.check_in_date }} → {{ booking.check_out_date }}</p>
+        <p><strong>Dates:</strong> 
+          {{ formatDate(booking.check_in_date) }} → {{ formatDate(booking.check_out_date) }}
+        </p>        
         <p><strong>Status:</strong> {{ booking.status.name }}</p>
-
         <div v-if="booking.status_id === 1">
           <button @click="updateStatus(booking.booking_id, 2)">Accept</button>
           <button @click="updateStatus(booking.booking_id, 3)">Deny</button>
@@ -89,6 +92,9 @@ export default {
     },
     goToReview(spotId) {
       this.$emit('goToReview', spotId); // This assumes a listener is present in App.vue
+    },
+    formatDate(date) {
+      return new Date(date).toISOString().split('T')[0];
     }
   }
 };

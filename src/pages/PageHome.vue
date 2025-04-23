@@ -2,23 +2,17 @@
   <div class="home-container">
     <!-- Hero Image -->
     <div class="hero-image">
-        <!-- <img :src="require('@/assets/camplyLogo.png')" alt="Camply logo" /> -->
+        <img :src="require('@/assets/forestPic.jpg')" alt="Camply logo" />
     </div>
 
     <!-- Welcome Text -->
     <section class="welcome-text">
-      <h1>Welcome to Camply — the Airbnb for campers.</h1>
+      <h1>Welcome To Camply ~~ The Airbnb For Campers.</h1>
       <p>
         Discover epic spots with just a few clicks. From cozy parks to hidden
         gems in the woods, we've got it all. Honest reviews, budget-friendly
         finds, and a hassle-free booking experience await.
       </p>
-
-      <!-- Action Buttons -->
-      <!-- <div class="auth-buttons">
-        <button @click="$emit('setActivePage', 'login')">Log in</button>
-        <button @click="$emit('setActivePage', 'register')">Sign up</button>
-      </div> -->
     </section>
 
     <!-- Footer -->
@@ -29,19 +23,7 @@
           <a href="#">Instagram</a> |
           <a href="#">Facebook</a> |
           <a href="#">Twitter</a>
-        </div>
-        <div>
-          Language:
-          <select>
-            <option>EN</option>
-            <option>NL</option>
-          </select>
-          Currency:
-          <select>
-            <option>EUR</option>
-            <option>USD</option>
-          </select>
-        </div>
+        </div>          
         <div><a href="#">Terms & Privacy</a></div>
       </div>
     </footer>
@@ -63,7 +45,7 @@ export default {
 .hero-image img {
   width: 100%;
   height: auto;
-  max-height: 400px;
+  max-height: 1000px;
   object-fit: cover;
 }
 
