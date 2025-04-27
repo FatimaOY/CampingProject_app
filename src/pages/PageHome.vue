@@ -7,7 +7,7 @@
 
     <!-- Welcome Text -->
     <section class="welcome-text">
-      <h1>Welcome To Camply ~~ The Airbnb For Campers.</h1>
+      <h1>Welcome To Camply <br>The Airbnb For Campers</h1>
       <p>
         Discover epic spots with just a few clicks. From cozy parks to hidden
         gems in the woods, we've got it all. Honest reviews, budget-friendly

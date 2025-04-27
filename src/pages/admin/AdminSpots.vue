@@ -89,8 +89,7 @@ export default {
       }
     },
     goToAddAmenity() {
-      alert("🔧 Feature coming soon: Add Amenities Page!");
-      // Later: this.$emit("setActivePage", "adminAddAmenities");
+      this.$emit("setActivePage", "adminAmenities");
     }
   }
 };

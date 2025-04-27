@@ -31,8 +31,10 @@
     <PageWriteReview v-if="activePage === 'writeReview'" :userId="userId" :spotId="selectedSpotId" />
     <!-- Admin pages -->
     <AdminUsers v-if="activePage === 'adminUsers'" />
-    <AdminSpots v-if="activePage === 'adminSpots'" />
+    <AdminSpots v-if="activePage === 'adminSpots'" @setActivePage="setActivePage" />
     <AdminBookings v-if="activePage === 'adminBookings'" />
+    <AdminAmenities v-if="activePage === 'adminAmenities'" />
+
   </div>
 </template>
 
@@ -57,6 +59,8 @@ import PageWriteReview from './pages/PageWriteReview.vue';
 import AdminUsers from './pages/admin/AdminUsers.vue';
 import AdminSpots from './pages/admin/AdminSpots.vue';
 import AdminBookings from './pages/admin/AdminBookings.vue';
+import AdminAmenities from './pages/admin/AdminAmenities.vue';
+
 
 
 export default {
@@ -81,7 +85,9 @@ export default {
     // admin
     AdminUsers,
     AdminSpots,
-    AdminBookings
+    AdminBookings,
+    AdminAmenities
+
     
   },
   data() {

@@ -155,6 +155,33 @@ button {
   cursor: pointer;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem; /* small space between inputs */
+  margin-top: 1rem;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+form button {
+  width: fit-content;
+  padding: 0.7rem 1.5rem;
+  background-color: #3d5018;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+
 .error {
   color: red;
   margin-top: 1rem;
