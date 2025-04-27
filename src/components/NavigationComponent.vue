@@ -13,7 +13,7 @@
 
         <!-- Bookings (regular users only) -->
         <li
-          v-if="isLoggedIn && !isAdmin"
+          v-if="isLoggedIn"
           class="c-navigation__link"
           @click="setActivePage('bookings')"
         >
@@ -49,7 +49,7 @@ export default {
         // admin pages 
         { label: "Users", page: "adminUsers", requiresAdmin: true },
         { label: "Camping Spots", page: "adminSpots", requiresAdmin: true },
-        { label: "Bookings", page: "adminBookings", requiresAdmin: true }
+        { label: "All Bookings", page: "adminBookings", requiresAdmin: true }
       ]
     };
   },
