@@ -29,8 +29,8 @@
         </div>
       </div>
   
-      <!-- Selected Info & Actions -->
-      <p><strong>Selected Dates:</strong> {{ selectedDates }}</p>
+      <!-- Selected dates for the debug-->
+      <!-- <p><strong>Selected Dates:</strong> {{ selectedDates }}</p> -->
   
       <div class="legend">
         <div><span class="legend-box available"></span> Available</div>
@@ -113,14 +113,39 @@
       },
       selectDate(date) {
         if (!date) return;
-        const isBooked = this.availability.find(a => a.Date === date && a.isBooked);
-        if (isBooked) return;
-  
+
+        const available = this.availability.find(a => a.Date === date && !a.isBooked);
+        if (!available) return;
+
+        // Deselect if already selected
         if (this.selectedDates.includes(date)) {
           this.selectedDates = this.selectedDates.filter(d => d !== date);
-        } else {
-          this.selectedDates.push(date);
+          return;
         }
+
+        // If no dates selected, just add the date
+        if (this.selectedDates.length === 0) {
+          this.selectedDates.push(date);
+          return;
+        }
+
+        //Here it checkes if the new date is consecutive with existing selection
+        const sorted = [...this.selectedDates].sort();
+        const first = new Date(sorted[0]);
+        const last = new Date(sorted[sorted.length - 1]);
+        const newDate = new Date(date);
+
+        const oneDay = 1000 * 60 * 60 * 24;
+        const isNextToFirst = (Math.abs(newDate - first) === oneDay);
+        const isNextToLast = (Math.abs(newDate - last) === oneDay);
+
+        if (isNextToFirst || isNextToLast) {
+          this.selectedDates.push(date);
+          return;
+        }
+
+        // if it is  not adjacent? then it does nothing
+        alert("You can only select dates that are one after the other.");
       },
       async submitBooking() {
         if (this.selectedDates.length === 0) return;
