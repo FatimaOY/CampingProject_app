@@ -10,6 +10,7 @@
     <div class="form-group">
       <label>Password</label>
       <input type="password" v-model="password" placeholder="Enter password" />
+      <p class="forgot-link" @click="goToForgotPassword">Forgot Password?</p>
     </div>
 
     <button @click="login">Log In</button>
@@ -30,32 +31,34 @@ export default {
   },
   methods: {
     login() {
-        fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-            email: this.email,
-            password: this.password
-            })
+      fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: this.email,
+          password: this.password
         })
-            .then(res => res.json())
-            .then(data => {
-            if (data.user) { // ✅ check if a user object was returned
-              this.$emit("setLoggedIn", data.user); //  includes user_id
-              this.$emit('setUserId', data.user.user_id);
-              this.$emit('setActivePage', 'explore');
-            } else {
-                this.error = data.error || 'Login failed.';
-            }
-            })
-            .catch((err) => {
-            console.error("Login error:", err);
-            this.error = 'Something went wrong. Try again later.';
-            });
-        }
-
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.user) {
+            this.$emit("setLoggedIn", data.user);
+            this.$emit('setUserId', data.user.user_id);
+            this.$emit('setActivePage', 'explore');
+          } else {
+            this.error = data.error || 'Login failed.';
+          }
+        })
+        .catch((err) => {
+          console.error("Login error:", err);
+          this.error = 'Something went wrong. Try again later.';
+        });
+    },
+    goToForgotPassword() {
+      this.$emit('setActivePage', 'forgot-password');
+    }
   }
 };
 </script>
@@ -91,5 +94,13 @@ button {
 .error-msg {
   color: red;
   margin-top: 1rem;
+}
+
+.forgot-link {
+  color: red;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>

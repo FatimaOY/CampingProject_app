@@ -63,7 +63,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: #fff;
+  color: #FEB;
 }
 
 .overlay h1 {
@@ -107,7 +107,7 @@ export default {
 
 .main-footer {
   background-color: #2d2814;
-  color: white;
+  color: #FEB;
   padding: 2rem 1rem;
   text-align: center;
 }

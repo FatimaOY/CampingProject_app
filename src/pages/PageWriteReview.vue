@@ -24,9 +24,9 @@
       <p class="success" v-if="success">{{ success }}</p>
       <p class="error" v-if="error">{{ error }}</p>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   export default {
     name: 'PageWriteReview',
     props: ['spotId', 'userId'],
@@ -85,9 +85,9 @@
       }
     }
   };
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .write-review {
     max-width: 600px;
     margin: 2rem auto;
@@ -126,5 +126,5 @@
     color: red;
     margin-top: 1rem;
   }
-  </style>
+</style>
   

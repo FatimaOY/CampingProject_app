@@ -2,7 +2,6 @@
   <div class="admin-users">
     <h1>Manage Users</h1>
 
-    <!-- Create New User Form -->
     <form @submit.prevent="createUser" class="create-form">
       <input v-model="newUser.email" type="email" placeholder="Email" required />
       <input v-model="newUser.password" type="password" placeholder="Password" required />
@@ -68,10 +67,10 @@ export default {
 
       const res = await fetch(`http://localhost:3000/users/${id}`, { method: 'DELETE' });
       if (res.ok) {
-        alert('✅ User deleted successfully.');
+        alert('User deleted successfully.');
         this.fetchUsers();
       } else {
-        alert('❌ Failed to delete user.');
+        alert('Failed to delete user.');
       }
     },
     async updateUser(user) {
@@ -88,10 +87,10 @@ export default {
       });
 
       if (res.ok) {
-        alert('✅ User updated successfully.');
+        alert('User updated successfully.');
         this.fetchUsers();
       } else {
-        alert('❌ Failed to update user.');
+        alert('Failed to update user.');
       }
     },
     async createUser() {
@@ -102,7 +101,7 @@ export default {
       });
 
       if (res.ok) {
-        alert('✅ User created successfully.');
+        alert('User created successfully.');
         this.newUser = {
           email: '',
           password: '',
@@ -112,7 +111,7 @@ export default {
         };
         this.fetchUsers();
       } else {
-        alert('❌ Failed to create user.');
+        alert('Failed to create user.');
       }
     }
   }

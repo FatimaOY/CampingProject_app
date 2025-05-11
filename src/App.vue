@@ -12,13 +12,10 @@
     <!-- Pages -->
     <PageHome v-if="activePage === 'home'" />
     <PageAuth v-if="activePage === 'auth'" @setActivePage="setActivePage" />
-    <PageLogin
-      v-if="activePage === 'login'"
-      @setActivePage="setActivePage"
-      @setLoggedIn="handleLogin"
-    />
+    <PageLogin v-if="activePage === 'login'" @setActivePage="setActivePage" @setLoggedIn="handleLogin"/>
+    <ForgotPassword v-if="activePage === 'forgot-password'" @setActivePage="setActivePage"/>
+    <ResetPassword v-if="activePage === 'reset-password'" />
     <PageRegister v-if="activePage === 'register'" @setActivePage="setActivePage" />
-    <!-- <PageExplore v-if="activePage === 'explore'" /> -->
     <PageBookings v-if="activePage === 'bookings'" :userId="userId" :isHost="isHost"   @goToReview="startReview"/>
     <PageHost v-if="activePage === 'host'" :userId="userId" @setAsHost="setIsHostTrue" />
     <PageProfile v-if="activePage === 'profile'" :userId="userId" @setActivePage="setActivePage"/>
@@ -43,6 +40,8 @@ import NavigationComponent from './components/NavigationComponent.vue'
 import PageHome from './pages/PageHome.vue'
 import PageAuth from './pages/PageAuth.vue'
 import PageLogin from './pages/PageLogin.vue'
+import ForgotPassword from './pages/ForgotPassword.vue';
+import ResetPassword from './pages/ResetPassword.vue';
 import PageRegister from './pages/PageRegister.vue'
 import PageExplore from './pages/PageExplore.vue'
 import PageBookings from './pages/PageBookings.vue'
@@ -70,6 +69,8 @@ export default {
     PageHome,
     PageAuth,
     PageLogin,
+    ForgotPassword,
+    ResetPassword,
     PageRegister,
     PageExplore,
     PageBookings,
@@ -109,7 +110,7 @@ export default {
       this.isLoggedIn = status;
     },
     setUserId(id) {
-      this.userId = id; // ✅ update user ID from login
+      this.userId = id; // update user ID from login
     },
     handleLogin(userData) {
       this.isLoggedIn = true;
@@ -151,8 +152,14 @@ export default {
     this.selectedSpotId = spotId;
     this.activePage = 'writeReview';
   }
+  },
+  created() {
+    const path = window.location.pathname;
+    const urlParams = new URLSearchParams(window.location.search);
 
-
+    if (path === '/reset-password' && urlParams.get('token')) {
+      this.activePage = 'reset-password';
+    }
   }
 }
 </script>

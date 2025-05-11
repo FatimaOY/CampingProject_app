@@ -4,13 +4,7 @@
   
       <!-- Spot Images -->
       <div v-if="images.length > 0" class="image-gallery">
-        <img
-          v-for="img in images"
-          :key="img.image_id"
-          :src="img.image_url"
-          alt="Camping spot image"
-          class="spot-image"
-        />
+        <img v-for="img in images" :key="img.image_id" :src="img.image_url" alt="Camping spot image" class="spot-image"/>
       </div>
   
       <!-- Owner Info -->
@@ -110,7 +104,7 @@
   };
   </script>
   
-  <style scoped>
+<style scoped>
   .spot-details {
     padding: 2rem;
     max-width: 800px;
@@ -170,5 +164,5 @@
 }
 
 
-  </style>
+</style>
   

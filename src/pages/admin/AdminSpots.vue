@@ -2,7 +2,6 @@
   <div class="admin-spots">
     <h1>Manage Camping Spots</h1>
 
-    <!-- ➕ Add Amenities Button -->
     <div class="amenity-button">
       <button @click="goToAddAmenity">Add New Amenities Option</button>
     </div>
@@ -58,10 +57,10 @@ export default {
 
       const res = await fetch(`http://localhost:3000/campingspots/${id}`, { method: 'DELETE' });
       if (res.ok) {
-        alert('✅ Spot deleted successfully.');
+        alert('Spot deleted successfully.');
         this.fetchSpots();
       } else {
-        alert('❌ Failed to delete spot.');
+        alert('Failed to delete spot.');
       }
     },
     async updateSpot(spot) {
@@ -82,10 +81,10 @@ export default {
       });
 
       if (res.ok) {
-        alert('✅ Spot updated successfully.');
+        alert('Spot updated successfully.');
         this.fetchSpots();
       } else {
-        alert('❌ Failed to update spot.');
+        alert('Failed to update spot.');
       }
     },
     goToAddAmenity() {
