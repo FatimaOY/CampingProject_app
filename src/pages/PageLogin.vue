@@ -1,21 +1,23 @@
 <template>
   <div class="login-page">
-    <h1>Login to Camply</h1>
+    <div class="login-box">
+      <h1>Login to <span>Camply</span></h1>
 
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" v-model="email" placeholder="Enter email" />
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" v-model="email" placeholder="Enter email" />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" v-model="password" placeholder="Enter password" />
+        <p class="forgot-link" @click="goToForgotPassword">Forgot Password?</p>
+      </div>
+
+      <button @click="login">Log In</button>
+
+      <p v-if="error" class="error-msg">{{ error }}</p>
     </div>
-
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" v-model="password" placeholder="Enter password" />
-      <p class="forgot-link" @click="goToForgotPassword">Forgot Password?</p>
-    </div>
-
-    <button @click="login">Log In</button>
-
-    <p v-if="error" class="error-msg">{{ error }}</p>
   </div>
 </template>
 
@@ -65,42 +67,87 @@ export default {
 
 <style scoped>
 .login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+}
+
+.login-box {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+  width: 100%;
   max-width: 400px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #f4f4f4;
-  border-radius: 8px;
+  text-align: center;
+}
+
+.login-box h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #3d5018;
+}
+
+.login-box h1 span {
+  font-weight: bold;
+  color: #5f4e32;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  text-align: left;
+  margin-bottom: 1.2rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
 }
 
 input {
   width: 100%;
-  padding: 0.5rem;
-  margin-top: 5px;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 button {
-  padding: 0.6rem 1.2rem;
+  width: 100%;
+  padding: 0.8rem;
   background-color: #3d5018;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #5f4e32;
 }
 
 .error-msg {
   color: red;
   margin-top: 1rem;
+  font-size: 0.95rem;
 }
 
 .forgot-link {
-  color: red;
-  margin-top: 0.3rem;
+  color: #d9534f;
   font-size: 0.9rem;
+  margin-top: 0.3rem;
+  text-align: right;
   cursor: pointer;
   text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.forgot-link:hover {
+  color: #b52b27;
 }
 </style>

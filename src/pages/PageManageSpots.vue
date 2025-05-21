@@ -25,7 +25,7 @@
     <div class="spots-list">
     <div v-for="spot in spots" :key="spot.spot_id" class="spot-card">
       <h3>{{ spot.name }}</h3>
-      <p><strong>Location:</strong> {{ spot.location }}, {{ spot.city?.name }}, {{ spot.country?.name }}</p>
+      <p><strong>Location:</strong> {{ spot.location }}</p>
       <p>{{ spot.description }}</p>
       <p><strong>Guests:</strong> {{ spot.amountGuests }} | <strong>Price:</strong> €{{ spot.price_per_night }}</p>
 
@@ -119,71 +119,108 @@ export default {
 <style scoped>
 .manage-spots-page {
   padding: 2rem;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7fdf7;
 }
 
-.form-container {
-  margin: 1rem 0;
-  background: #f9f9f9;
-  padding: 1rem;
-  border-radius: 8px;
-}
-
-.spots-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.spot-card {
-  background: #f4f4f4;
-  padding: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  text-align: left;
+.manage-spots-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
 }
 
 button {
-  margin-top: 0.5rem;
+  padding: 0.6rem 1.2rem;
   background-color: #3d5018;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #5a6631;
+}
+
+.form-container {
+  margin-top: 1rem;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.form-container h2 {
+  margin-bottom: 1rem;
+  color: #3d5018;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem; /* small space between inputs */
-  margin-top: 1rem;
+  gap: 0.8rem;
 }
 
 form input,
 form textarea {
   width: 100%;
-  padding: 0.6rem;
+  padding: 0.7rem;
   border: 1px solid #ccc;
   border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+  box-sizing: border-box;
 }
 
 form button {
-  width: fit-content;
-  padding: 0.7rem 1.5rem;
+  align-self: flex-start;
   background-color: #3d5018;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 1rem;
 }
 
+.spots-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.spot-card {
+  background: #ffffff;
+  padding: 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.spot-card h3 {
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.spot-card p {
+  margin: 0.3rem 0;
+  color: #444;
+}
+
+.spot-card button {
+  margin-top: 0.7rem;
+  width: 100%;
+}
 
 .error {
   color: red;
-  margin-top: 1rem;
+  background-color: #fcebea;
+  border: 1px solid #f5c6cb;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1.5rem;
+  text-align: center;
 }
 </style>

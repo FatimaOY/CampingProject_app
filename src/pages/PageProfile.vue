@@ -160,49 +160,111 @@ export default {
 
 <style scoped>
 .profile-page {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #f4f4f4;
-  border-radius: 8px;
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 2rem 2.5rem;
+  background-color: #fcfcfc;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.profile-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
+.profile-page h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-size: 2rem;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   text-align: left;
 }
 
-input {
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+input[type="text"],
+input[type="file"] {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+input[type="file"] {
+  padding: 0.4rem;
+}
+
+.profile-img {
+  display: block;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 button {
-  margin-right: 10px;
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #3d5018;
+  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  margin: 0.5rem 0.5rem 1rem 0;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #5a6631;
 }
 
 button.danger {
   background-color: #a33;
-  color: white;
+}
+
+button.danger:hover {
+  background-color: #c0392b;
 }
 
 .success {
   color: green;
+  font-weight: bold;
+  margin-top: 1rem;
 }
 
 .error {
   color: red;
+  font-weight: bold;
+  margin-top: 1rem;
 }
+
+.owner-section {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.owner-section h2 {
+  color: #3d5018;
+  margin-bottom: 1rem;
+}
+
+.owner-section button {
+  background-color: #e0e0e0;
+  color: #3d5018;
+}
+
+.owner-section button:hover {
+  background-color: #cbd5cb;
+}
+
 </style>

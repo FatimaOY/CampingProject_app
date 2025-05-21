@@ -1,7 +1,5 @@
 <template>
   <div class="bookings-page">
-    <h1>Bookings</h1>
-
     <div v-if="isHost">
       <button @click="toggleView">
         {{ showOwnBookings ? 'View My Bookings' : 'View Bookings on My Spots' }}
@@ -16,6 +14,8 @@
         <p><strong>Dates:</strong> 
           {{ formatDate(booking.check_in_date) }} → {{ formatDate(booking.check_out_date) }}
         </p>
+        <p><strong>Price:</strong> €{{ booking.total_price }}</p>
+
         <p><strong>Status:</strong> {{ booking.status.name }}</p>
         <button v-if="booking.status_id === 2" @click="goToReview(booking.spot.spot_id)">Write a Review</button>
       </div>
@@ -26,9 +26,12 @@
       <div v-for="booking in bookingsOnMySpots" :key="booking.booking_id" class="booking-card">
         <p><strong>User:</strong> {{ booking.user.first_name }} {{ booking.user.last_name }}</p>
         <p><strong>Spot:</strong> {{ booking.spot.name }}</p>
+
         <p><strong>Dates:</strong> 
           {{ formatDate(booking.check_in_date) }} → {{ formatDate(booking.check_out_date) }}
-        </p>        
+        </p>      
+        <p><strong>Price:</strong> €{{ booking.total_price }}</p>
+  
         <p><strong>Status:</strong> {{ booking.status.name }}</p>
         <div v-if="booking.status_id === 1">
           <button @click="updateStatus(booking.booking_id, 2)">Accept</button>

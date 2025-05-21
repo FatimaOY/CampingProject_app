@@ -290,124 +290,156 @@
   };
   </script>
 
-  <style scoped>
-  .image-upload-box input[type="file"] {
-    margin-bottom: 0.5rem;
-  }
-
+<style scoped>
   .manage-spot-page {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #f8f8f8;
-    border-radius: 10px;
-  }
-  form {
-    margin-bottom: 2rem;
-  }
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  input, textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-  button {
-    margin-top: 1rem;
-    background-color: #3d5018;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .success {
-    color: green;
-  }
-  .error {
-    color: red;
-  }
-  .image-upload-box {
-    margin-bottom: 2rem;
-  }
+  max-width: 850px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+}
 
-  .image-upload-box input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
+h1, h2 {
+  margin-bottom: 1rem;
+  color: #3d5018;
+}
 
-  .image-upload-box button {
-    background-color: #3d5018;
-    color: white;
-    border: none;
-    padding: 0.4rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 1rem;
-  }
+form {
+  margin-bottom: 2rem;
+}
 
-  .image-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .image-item {
-    position: relative;
-  }
-
-  .image-item img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 6px;
-  }
-
-  .image-item button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: crimson;
-    border: none;
-    color: white;
-    font-size: 0.7rem;
-    padding: 0.3rem 0.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .inline-left {
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
   text-align: left;
 }
 
-.amenities-inline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.5rem;
+label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
 }
 
+input, textarea {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Inline Left Fields */
+.inline-left {
+  display: inline-block;
+  width: 48%;
+  margin-right: 2%;
+}
+
+/* Buttons */
+button {
+  background-color: #3d5018;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #5a6631;
+}
+
+.success {
+  color: green;
+  margin-top: 1rem;
+}
+
+.error {
+  color: red;
+  margin-top: 1rem;
+}
+
+/* Image Upload Section */
+.image-upload-box {
+  margin-bottom: 2rem;
+  background: #f4f4f4;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.image-upload-box input[type="file"] {
+  margin-bottom: 0.5rem;
+  padding: 0.4rem;
+}
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.image-item {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.image-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.image-item button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: crimson;
+  border: none;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Amenities Scrollbox */
 .amenities-scrollbox {
-  background-color: white;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 10px;
+  padding: 0.7rem;
   max-height: 160px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  margin-top: 0.5rem;
+  gap: 0.5rem;
 }
 
 .amenity-option {
   display: flex;
   align-items: center;
-  gap: 8px;
-  white-space: nowrap;
+  gap: 0.5rem;
+  font-size: 0.95rem;
 }
 
-  </style>
+/* Calendar Wrapper */
+.vc-container {
+  margin-top: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+</style>

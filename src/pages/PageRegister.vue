@@ -132,41 +132,91 @@ export default {
 
 <style scoped>
 .register-page {
-  max-width: 450px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #f4f4f4;
-  border-radius: 8px;
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:  #ffffff;
+
+}
+
+.register-page h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-size: 1.8rem;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.3rem;
 }
 
 input {
   width: 100%;
-  padding: 0.5rem;
-  margin-top: 5px;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: #3d5018;
+  outline: none;
+}
+
+small {
+  display: block;
+  color: #666;
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
 }
 
 button {
-  padding: 0.6rem 1.2rem;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
   background-color: #3d5018;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #5f6c30;
 }
 
 .error-msg {
-  color: red;
+  color: #d9534f;
+  background-color: #fcebea;
+  border: 1px solid #f5c6cb;
+  padding: 0.8rem;
+  border-radius: 6px;
   margin-top: 1rem;
+  text-align: center;
 }
 
 .success-msg {
-  color: green;
+  color: #28a745;
+  background-color: #e6f9ed;
+  border: 1px solid #c3e6cb;
+  padding: 0.8rem;
+  border-radius: 6px;
   margin-top: 1rem;
+  text-align: center;
 }
 </style>

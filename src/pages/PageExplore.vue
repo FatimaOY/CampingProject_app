@@ -3,7 +3,6 @@
     <h1>Explore Camping Spots</h1>
 
     <div class="filters">
-      <strong>Filter by:</strong>
       <select v-model="filters.country">
         <option value="">Country</option>
         <option v-for="c in availableCountries" :key="c" :value="c">{{ c }}</option>
@@ -170,4 +169,56 @@ export default {
   border-radius: 6px;
   margin-bottom: 0.5rem;
 }
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background-color: #f0f4ee;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.filters strong {
+  width: 100%;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.filters input,
+.filters select {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  font-size: 0.95rem;
+  min-width: 120px;
+  background-color: #fff;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #3d5018;
+  outline: none;
+}
+
+.filters button {
+  padding: 0.6rem 1.4rem;
+  background-color: #3d5018;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filters button:hover {
+  background-color: #5a6631;
+}
+
 </style>
