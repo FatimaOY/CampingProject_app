@@ -270,7 +270,7 @@
           });
       },
       fetchCities() {
-        fetch('http://localhost:3000/cities') // Change this if your endpoint is different
+        fetch('http://localhost:3000/cities') // Changes this if your endpoint is different
           .then(res => res.json())
           .then(data => {
             this.cities = data;

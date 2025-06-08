@@ -5,6 +5,10 @@
       <p v-if="spot"><strong>Location:</strong> {{ spot.location }}</p>
   
       <form @submit.prevent="submitReview">
+        <!-- @submit is short for v-on:submit → it listens for the form's submit event.
+            .prevent is a modifier that Listens for the form’s submit event.
+                                      Prevents the default form behavior which is page reload.
+                                      Calls the submitReview() method. -->
         <label>
           Rating:
           <select v-model.number="rating" required>

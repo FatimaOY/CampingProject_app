@@ -36,7 +36,10 @@ export default {
     };
   },
   mounted() {
+    // this code checks the URL for a token. If it's there: store it. If it's missing: it show an error.
     const urlParams = new URLSearchParams(window.location.search);
+    //window.location.search gives you the query string in the URL
+    //new URLSearchParams(...) turns that string into an object you can easily read.
     this.token = urlParams.get('token');
     if (!this.token) {
       this.error = 'Missing reset token.';
@@ -63,6 +66,7 @@ export default {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          //converts a JavaScript object into a JSON string
           token: this.token,
           newPassword: this.newPassword
         })

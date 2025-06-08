@@ -80,7 +80,7 @@
                     this.newPassword = '';
                     this.confirmPassword = '';
 
-                    // ✅ Redirect to Profile page after 1.5 seconds
+                    // redirect to Profile page after 1.5 seconds
                     setTimeout(() => {
                     this.$emit('setActivePage', 'profile');
                     }, 1500);

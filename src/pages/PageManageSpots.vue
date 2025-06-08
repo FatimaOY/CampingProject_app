@@ -29,7 +29,7 @@
       <p>{{ spot.description }}</p>
       <p><strong>Guests:</strong> {{ spot.amountGuests }} | <strong>Price:</strong> €{{ spot.price_per_night }}</p>
 
-      <!-- ✅ Edit / Activate button -->
+      <!-- Edit / Activate button -->
       <button @click="$emit('editSpot', spot.spot_id)">Edit / Activate</button>
 
       <button @click="deleteSpot(spot.spot_id)">Delete</button>

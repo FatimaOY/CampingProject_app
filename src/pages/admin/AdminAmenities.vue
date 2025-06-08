@@ -81,7 +81,7 @@
         }
       },
       async deleteAmenity(id) {
-        if (!confirm('Are you sure you want to delete this amenity?')) return;
+        if (!confirm('Are you sure you want to delete this amenity?')) return; //sends pop up.
 
         try {
           const res = await fetch(`http://localhost:3000/amenities/${id}`, { method: 'DELETE' });
